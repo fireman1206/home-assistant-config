@@ -1,0 +1,16 @@
+---
+# Put the house in standard mode
+#
+# switch on PC and TV switchs
+#
+
+house_mode_away:
+  alias: Maison en mode éco.
+  sequence: 
+    - service: switch.turn_on
+      data: 
+        entity_id: switch.switch.prise_pc_switch
+    - service: switch.turn_on
+      data: 
+        entity_id: switch.switch.prise_tv_switch
+    

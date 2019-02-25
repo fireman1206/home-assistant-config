@@ -1,0 +1,19 @@
+---
+# Put the house in low consumation mode. To be used when alarm is armes away
+#
+# switch off all ligths and PC and TV switchs
+#
+
+house_mode_away:
+  alias: Maison en mode éco.
+  sequence: 
+    - service: switch.turn_off
+      data: 
+        entity_id: switch.switch.prise_pc_switch
+    - service: switch.turn_off
+      data: 
+        entity_id: switch.switch.prise_tv_switch
+    - service: light.turn_off
+      data: 
+        entity_id: group.all_lights
+        

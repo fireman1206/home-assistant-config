@@ -11,6 +11,12 @@
     - platform: state
       entity_id: binary_sensor.motion_sensor_livingroom
       to: 'on'
+    - platform: state
+      entity_id: binary_sensor.garage_door
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.main_door
+      to: 'on'
   action:
     - service: alarm_control_panel.alarm_trigger
       entity_id: alarm_control_panel.ha_alarm
@@ -29,4 +35,4 @@
   action:
     - service: notify.telegram
       data:
-        message: "ALARM! L'alarme a été déclanchée."
+        message: "ALARM! L'alarme a été déclanchée"
