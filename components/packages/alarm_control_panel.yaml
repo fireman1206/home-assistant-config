@@ -6,8 +6,11 @@
 alarm_control_panel:
   - platform: manual
     code: !secret alarm_code
-    pending_time: 30
-    delay_time: 20
+    # Duration before state change
+    pending_time: 20
+    # Duration before triggering the alarm = pending_time + delay_time
+    delay_time: 10
+    # Duration of the alarm after the triggering
     trigger_time: 4
     disarmed:
       trigger_time: 0
