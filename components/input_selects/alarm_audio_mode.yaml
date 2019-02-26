@@ -1,0 +1,8 @@
+---
+# input_select to decide if the alarm is quiet or not
+#
+alarm_audio_mode:
+  name: Audio mode de l'alarme
+  options:
+    - "Normale"
+    - "Silencieuse"

@@ -1,0 +1,6 @@
+---
+# input_select allows to follow house or system mode
+#
+# link to documentation
+#
+input_select: !include_dir_list ../input_selects

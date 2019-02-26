@@ -1,0 +1,75 @@
+---
+# Manage the different audio messages and sounds used by the alarm
+#
+# There is an input_select to decide if the alarm is quiet or not
+#
+
+# Warning message when alarm is pending befored being triggeredd
+- alias: "Audio avant déclenchement de l'alarme"
+  initial_state: true
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.ha_alarm
+      from: 'armed_away'
+      to: 'pending'
+  condition:
+    condition: state
+    entity_id: input_select.alarm_audio_mode
+    state: 'Normale'
+  action: 
+    - service: tts.google_say
+      entity_id: media_player.google_home
+      data:
+        message: "L'alarme vient d'être déclenchée. Vous avez 30 secondes pour la désactiver."
+
+# Warning message when arming the alarm
+- alias: "Audio Armement de l'alarme"
+  initial_state: true
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.ha_alarm
+      from: 'disarmed'
+      to: 'pending'
+  condition:
+    condition: state
+    entity_id: input_select.alarm_audio_mode
+    state: 'Normale'
+  action: 
+    - service: tts.google_say
+      entity_id: media_player.google_home
+      data:
+        message: "L'alarme est en cours d'activation. Vous avez 20 secondes pour quitter la maison"
+
+#Alarm sound when the alarm is triggered
+- alias: "Audio alarme déclanché"
+  initial_state: true
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.ha_alarm
+      to: 'triggered'
+  condition:
+    condition: state
+    entity_id: input_select.alarm_audio_mode
+    state: 'Normale'
+  action: 
+    - service: xiaomi_aqara.play_ringtone
+      data: 
+        gw_mac: !secret gateway_xiaomi_mac
+        ringtone_id: 0
+        ringtone_vol: 100
+
+#Stop sound when the alarm is no more triggered
+- alias: "Audio alarme arreté"
+  initial_state: true
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.ha_alarm
+      from: 'triggered'
+  condition:
+    condition: state
+    entity_id: input_select.alarm_audio_mode
+    state: 'Normale'
+  action: 
+    - service: xiaomi_aqara.stop_ringtone
+      data: 
+        gw_mac: !secret gateway_xiaomi_mac
